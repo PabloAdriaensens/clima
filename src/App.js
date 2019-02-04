@@ -6,8 +6,13 @@ import Error from "./componentes/Error";
 class App extends Component {
 
     state = {
-        error: ''
+        error: '',
+        consulta: {}
     };
+
+    componentDidUpdate() {
+        this.consultarApi();
+    }
 
     componentDidMount() {
         this.setState({
@@ -15,13 +20,31 @@ class App extends Component {
         })
     }
 
+    consultarApi = () => {
+        const {ciudad, pais} = this.state.consulta;
+        if (!ciudad || !pais) return null;
+
+        const appId = 'cd578e494dc09ec2bd6ae76819e5120e';
+        let url = `http://api.openweathermap.org/data/2.5/weather?q=${ciudad},${pais}&appid=${appId}`;
+
+        console.log(url);
+
+        // query con fetch api
+
+        // leer la url y agregar el API key
+
+        // consultar con fetch
+    };
+
     datosConsulta = respuesta => {
         if (respuesta.ciudad === "" || respuesta.pais === "") {
             this.setState({
                 error: true
             })
         } else {
-            console.log('todo correcto');
+            this.setState({
+                consulta: respuesta
+            })
         }
     };
 
