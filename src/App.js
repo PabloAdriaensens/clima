@@ -7,7 +7,8 @@ class App extends Component {
 
     state = {
         error: '',
-        consulta: {}
+        consulta: {},
+        resultado: {}
     };
 
     componentDidUpdate() {
@@ -24,16 +25,25 @@ class App extends Component {
         const {ciudad, pais} = this.state.consulta;
         if (!ciudad || !pais) return null;
 
+        // leer la url y agregar el API key
         const appId = 'cd578e494dc09ec2bd6ae76819e5120e';
         let url = `http://api.openweathermap.org/data/2.5/weather?q=${ciudad},${pais}&appid=${appId}`;
 
-        console.log(url);
+        // console.log(url);
 
         // query con fetch api
-
-        // leer la url y agregar el API key
-
-        // consultar con fetch
+        fetch(url)
+            .then(respuesta => {
+                return respuesta.json();
+            })
+            .then(datos => {
+                this.setState({
+                    resultado: datos
+                })
+            })
+            .catch(error => {
+                console.log(error);
+            })
     };
 
     datosConsulta = respuesta => {
