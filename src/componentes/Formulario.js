@@ -18,6 +18,7 @@ class Formulario extends Component {
         console.log(respuesta);
 
         // enviar por props
+        this.props.datosConsulta(respuesta);
 
         // resetear el form
     };
