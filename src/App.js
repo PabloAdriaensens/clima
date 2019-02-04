@@ -12,8 +12,10 @@ class App extends Component {
         resultado: {}
     };
 
-    componentDidUpdate() {
-        this.consultarApi();
+    componentDidUpdate(prevProps, prevState) {
+        if(prevState.consulta !== this.state.consulta) {
+            this.consultarApi();
+        }
     }
 
     componentDidMount() {
